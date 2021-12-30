@@ -53,19 +53,3 @@ st.header('**%s**' % string_name)
 
 string_summary = tickerData.info['longBusinessSummary']
 st.info(string_summary)
-
-    © 2021 GitHub, Inc.
-
-    Terms
-    Privacy
-    Security
-    Status
-    Docs
-    Contact GitHub
-    Pricing
-    API
-    Training
-    Blog
-    About
-
-Loading complete
