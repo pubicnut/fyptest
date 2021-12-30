@@ -1,10 +1,17 @@
-from flask import Flask
+from flask import Flask, redirect, url_for
 
 app = Flask(__name__)
 
-if __name__ == "__main__":
-    app.run()
-# Defining the home page of our site
-@app.route("/")  # this sets the route to this page
+@app.route("/")
 def home():
-	return "Hello! this is the main page <h1>HELLO</h1>"  # some basic inline html
+	return "Hello! This is the home page <h1>HELLO</h1>"
+
+@app.route("/<name>")
+def user(name):
+	return f"Hello {name}!"
+
+@app.route("/admin")
+	return redirect(url_for("user", name="Admin!"))  # Now we when we go to /admin we will redirect to user with the argument "Admin!"
+
+if __name__ == "__main__":
+	app.run()
