@@ -1,55 +1,34 @@
-import streamlit as st
-import pandas as pd
-import yfinance as yf
-import datetime
-from datetime import date
-import time
-import requests
-import io
-import math
-import matplotlib.pyplot as plt
-import numpy as np
-import plotly
-import cufflinks as cf
+from flask import Flask
 
-#title of proj
-st.title('Stock Prediction')
+app = Flask(__name__)
 
-#enter stock symbol
-user_input = st.text_input("ENTER STOCK SYMBOL")
-
-#select date range if you want, or you can just see current time stock
-st.sidebar.subheader('Select date range')
-start_date = st.sidebar.date_input("Start date", datetime.date(2015, 1, 1))
-end_date = st.sidebar.date_input("End date", datetime.date.today())
-
-#current year button
-current_year = st.sidebar.button("Current year")
-if current_year:
-    start_date = date(date.today().year, 1, 1)
-    end_date = date(date.today().year, 12, 31)
-
-#retrieve particular stock data
-df = yf.download(user_input, start = start_date, end = end_date, progress = False )
-st.text(df.head(6))
-
-#plot graph for "Close" column
-# df["Close"].plot(figsize=(16,6))
-# chart_data = pd.DataFrame(df["Close"])
-# st.line_chart(chart_data)
-
-#bollinger bands, looks like better chart but not very sure
-st.header('**Graph**')
-qf=cf.QuantFig(df,title= user_input,legend='top',name='GS')
-qf.add_bollinger_bands()
-fig = qf.iplot(asFigure=True)
-st.plotly_chart(fig)
-
-tickerData = yf.Ticker(user_input)
-string_logo = '<img src=%s>' % tickerData.info['logo_url']
-st.markdown(string_logo, unsafe_allow_html=True)
-string_name = tickerData.info['longName']
-st.header('**%s**' % string_name)
-
-string_summary = tickerData.info['longBusinessSummary']
-st.info(string_summary)
+if __name__ == "__main__":
+    app.run()
+# Defining the home page of our site
+@app.route("/")  # this sets the route to this page
+def home():
+	return "<!-- TradingView Widget BEGIN -->
+<div class="tradingview-widget-container">
+  <div id="tradingview_7cf13"></div>
+  <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/NASDAQ-AAPL/" rel="noopener" target="_blank"><span class="blue-text">AAPL Chart</span></a> by TradingView</div>
+  <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+  <script type="text/javascript">
+  new TradingView.widget(
+  {
+  "width": 980,
+  "height": 610,
+  "symbol": "NASDAQ:AAPL",
+  "interval": "D",
+  "timezone": "Etc/UTC",
+  "theme": "light",
+  "style": "1",
+  "locale": "en",
+  "toolbar_bg": "#f1f3f6",
+  "enable_publishing": false,
+  "allow_symbol_change": true,
+  "container_id": "tradingview_7cf13"
+}
+  );
+  </script>
+</div>
+<!-- TradingView Widget END -->"  # some basic inline html
