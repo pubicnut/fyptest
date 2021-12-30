@@ -7,7 +7,7 @@ if __name__ == "__main__":
 # Defining the home page of our site
 @app.route("/")  # this sets the route to this page
 def home():
-	return "<!-- TradingView Widget BEGIN -->
+	return "
 <div class="tradingview-widget-container">
   <div id="tradingview_7cf13"></div>
   <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/NASDAQ-AAPL/" rel="noopener" target="_blank"><span class="blue-text">AAPL Chart</span></a> by TradingView</div>
@@ -30,5 +30,4 @@ def home():
 }
   );
   </script>
-</div>
-<!-- TradingView Widget END -->"  # some basic inline html
+</div>"  
