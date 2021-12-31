@@ -37,5 +37,5 @@ components.html(
 </div>
 <!-- TradingView Widget END -->
 """,
-height=1080, width=1080
+height=1080, width=960
 )
